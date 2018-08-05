@@ -1,5 +1,5 @@
 // initialize the actual phaser game object
-    //first set of parameters is the size of windows along with some internal phaser stuff
+//first set of parameters is the size of windows along with some internal phaser stuff
 const game = new Phaser.Game(800, 600, Phaser.AUTO, '', {
     // create preload, create, update functions which will register the function within phaser objects
     preload: preload,
@@ -15,9 +15,25 @@ function preload() {
     game.load.image('plateform', 'https://raw.githubusercontent.com/egee-irl/jumper/master/assets/platform.png')
 };
 function create() {
-    
+    this.add.image(400, 300, 'sky');
+
+    var particles = this.add.particles('red');
+
+    var emitter = particles.createEmitter({
+        speed: 100,
+        scale: { start: 1, end: 0 },
+        blendMode: 'ADD'
+    });
+
+    var logo = this.physics.add.image(400, 100, 'logo');
+
+    logo.setVelocity(100, 200);
+    logo.setBounce(1, 1);
+    logo.setCollideWorldBounds(true);
+
+    emitter.startFollow(logo);
 };
-function update() {};
+function update() { };
 
 // var config = {
 //     type: Phaser.AUTO,
